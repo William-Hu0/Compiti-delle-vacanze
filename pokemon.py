@@ -30,7 +30,7 @@ while True:
                 elif 71<= numero <91:
                     f=dfncomune.sample()
                     print(f)
-                    rezero = pd.DataFrame(h)
+                    rezero = pd.DataFrame(f)
                     collezione = pd.concat([collezione, rezero])
                     crediti+=3
                 elif 91<= numero <100:
