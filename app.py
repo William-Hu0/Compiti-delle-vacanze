@@ -27,13 +27,13 @@ def ri():
                     collezione = pd.concat([collezione, rezero])
                     crediti+=3
                 elif 91<= numero <100:
-                    k=dfncomune.sample()
+                    k=dfrara.sample()
                     rezero = pd.DataFrame(k)
                     pacchetto=pd.concat([pacchetto, rezero])
                     collezione = pd.concat([collezione, rezero])
                     crediti+=6
                 elif numero==100:
-                    L=dfncomune.sample()
+                    L=dfuber.sample()
                     rezero = pd.DataFrame(L)
                     pacchetto=pd.concat([pacchetto, rezero])
                     collezione = pd.concat([collezione, rezero])
