@@ -9,45 +9,49 @@ dfrara=df[df["Rarità"]=="Rara"]
 dfuber=df[df["Rarità"]=="Ultra Rara"]
 crediti=100
 collezione=pd.DataFrame()
-pacchetto=[]
-def apri():
-        global crediti, collezione, pacchetto
-
-        if crediti>=10:
-            for i in range(5):
+pacchetto=pd.DataFrame()
+def ri():
+    global crediti, collezione, pacchetto
+    for i in range(5):
                 numero=random.randint(1, 100)
                 if numero <= 70:
                     h=dfcomune.sample()
                     rezero = pd.DataFrame(h)
-                    pacchetto.append(h)
+                    pacchetto=pd.concat([pacchetto, rezero])
                     collezione = pd.concat([collezione, rezero])
                     crediti+=1
                 elif 71<= numero <91:
                     f=dfncomune.sample()
                     rezero = pd.DataFrame(f)
-                    pacchetto.append(f)
+                    pacchetto=pd.concat([pacchetto, rezero])
                     collezione = pd.concat([collezione, rezero])
                     crediti+=3
                 elif 91<= numero <100:
                     k=dfncomune.sample()
                     rezero = pd.DataFrame(k)
-                    pacchetto.append(k)
+                    pacchetto=pd.concat([pacchetto, rezero])
                     collezione = pd.concat([collezione, rezero])
                     crediti+=6
                 elif numero==100:
                     L=dfncomune.sample()
                     rezero = pd.DataFrame(L)
-                    pacchetto.append(L)
+                    pacchetto=pd.concat([pacchetto, rezero])
                     collezione = pd.concat([collezione, rezero])
                     crediti+=888
-            crediti -=10
+    crediti -=10
+def apri():
+        global crediti, collezione, pacchetto
+        if crediti>=10:
+            pacchetto.drop(pacchetto.index, inplace=True)
+            ri()
         else:
             return "crediti insufficienti"
 def apri10():
     global crediti, collezione
     if crediti>=100:
-            for i in range(10):
-                apri()
+        pacchetto.drop(pacchetto.index, inplace=True)
+        for i in range(10):
+            ri()
     else:
         print("crediti insufficienti")
 @app.route("/", methods=["GET", "POST"])
@@ -61,7 +65,7 @@ def index():
         elif azione == "collezione":
             global collezione
             collezione.to_csv("collezione.csv", index=False)
-    return render_template("index.html", crediti=crediti, pacchetto=pacchetto, df=df)
+    return render_template("index.html", crediti=crediti, pacchetto=pacchetto.to_html(index=False), df=df)
 
 @app.route("/guardacollezione")
 def guardacollezione():
