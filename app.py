@@ -61,8 +61,7 @@ def index():
         elif azione == "collezione":
             global collezione
             collezione.to_csv("collezione.csv", index=False)
-        return render_template("index.html", crediti=crediti, pacchetto=pacchetto)
-    return render_template("index.html", crediti=crediti, pacchetto=pacchetto)
+    return render_template("index.html", crediti=crediti, pacchetto=pacchetto, df=df)
 
 @app.route("/guardacollezione")
 def guardacollezione():
