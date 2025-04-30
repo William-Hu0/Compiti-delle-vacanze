@@ -14,12 +14,12 @@
         </style>
         <h1>Pokemon</h1>
         <h2>Punti: {{crediti}}</h2>
+        <h2>Numero Pacchetti aperti: {{we}}</h2>
         <form method="POST">
             <button type="submit" name="eh" value="apri">Apri 1 Pacchetto (Costo: 10 crediti)</button><br><br>
             <button type="submit" name="eh" value="apri10">Apri 10 Pacchetti (Costo: 100 crediti)</button><br><br>
             <button type="submit" name="eh" value="collezione">Salva Collezione</button><br><br>
         </form>
-
         {{pacchetto|safe}}
 
         <a href="{{ url_for('guardacollezione')}}">Collezione</a>

@@ -10,6 +10,9 @@ dfuber=df[df["Rarità"]=="Ultra Rara"]
 crediti=100
 collezione=pd.DataFrame()
 pacchetto=pd.DataFrame()
+we=0
+ms="collezione vuota"
+ms1="crediti insufficienti"
 def ri():
     global crediti, collezione, pacchetto
     for i in range(5):
@@ -40,36 +43,38 @@ def ri():
                     crediti+=888
     crediti -=10
 def apri():
-        global crediti, collezione, pacchetto
+        global crediti, collezione, pacchetto, we
         if crediti>=10:
+            we+=1
             pacchetto.drop(pacchetto.index, inplace=True)
             ri()
         else:
-            return "crediti insufficienti"
+            ms1="crediti insufficienti"
 def apri10():
-    global crediti, collezione
+    global crediti, collezione,we
     if crediti>=100:
+        we+=10
         pacchetto.drop(pacchetto.index, inplace=True)
         for i in range(10):
             ri()
     else:
-        print("crediti insufficienti")
+        ms1="crediti insufficienti"
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
         eh = request.form.get("eh")
         if eh == "apri":
-            risultato = apri()
+            apri()
         elif eh == "apri10":
-            risultato = apri10()
+            apri10()
         elif eh == "collezione":
             global collezione
             collezione.to_csv("collezione.csv", index=False)
-    return render_template("index.html", crediti=crediti, pacchetto=pacchetto.to_html(index=False), df=df)
+    return render_template("index.html", crediti=crediti, pacchetto=pacchetto.to_html(index=False), df=df, we=we, ms1=ms1)
 
 @app.route("/guardacollezione")
 def guardacollezione():
-    return render_template("collezione.html", collezione=collezione.to_html(index=False))
+    return render_template("collezione.html", collezione=collezione.to_html(index=False), we=we,ms=ms)
 
 
 

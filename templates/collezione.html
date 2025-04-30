@@ -14,6 +14,10 @@
         a {color:aliceblue;}
     </style>
     <h1>Collezione</h1>
+    <a href="{{ url_for('index')}}">Torna ad aprire Pacchetti</a>
+    {% if we==0 %}
+        {{ms}}
+    {% endif %}
     {{collezione | safe}}
     <a href="{{ url_for('index')}}">Torna ad aprire Pacchetti</a>
 </body>
